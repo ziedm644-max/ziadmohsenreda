@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول</title>
+  <style>
+    body { font-family: Arial; background:#f4f6f8; direction: rtl; }
+    .box {
+      width: 330px;
+      margin: 120px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    button {
+      background:#1e88e5;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>تسجيل الدخول</h2>
+  <input type="text" id="code" placeholder="كود الطالب">
+  <button onclick="login()">دخول</button>
+</div>
+
+<script>
+  // 👨‍🎓 الطلبة + المرحلة
+  const students = {
+    "577723": { name: "أحمد علي", stage: "الصف الأول الثانوي" },
+    "536361": { name: "محمد اسامه", stage: "الصف الثاني الثانوي" },
+    "112773": { name: "عمر ربيع", stage: "الصف الثالث الثانوي" }
+  };
+
+  function login() {
+    let code = document.getElementById("code").value.trim();
+
+    if (!students[code]) {
+      alert("❌ كود غير صحيح");
+      return;
+    }
+
+    localStorage.setItem("username", students[code].name);
+    localStorage.setItem("stage", students[code].stage);
+    localStorage.setItem("student_code", code);
+
+    window.location.href = "platform.html";
+  }
+</script>
+
+</body>
+</html>

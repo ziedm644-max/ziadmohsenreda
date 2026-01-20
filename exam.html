@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الامتحان</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      direction: rtl;
+      margin: 0;
+      padding: 20px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 10px r
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>امتحان تجريبي</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f8;
+      direction: rtl;
+      padding: 20px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .timer {
+      background: #1e88e5;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    .q {
+      margin-bottom: 15px;
+    }
+    button {
+      background: #1e88e5;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>📝 امتحان تجريبي</h2>
+  <div class="timer" id="timer">الوقت المتبقي: 02:00</div>
+
+  <div class="q">
+    <p>1️⃣ عاصمة مصر هي؟</p>
+    <input type="radio" name="q1" value="a"> الجيزة<br>
+    <input type="radio" name="q1" value="b"> القاهرة<br>
+    <input type="radio" name="q1" value="c"> الإسكندرية<br>
+  </div>
+
+  <div class="q">
+    <p>2️⃣ 5 + 3 = ؟</p>
+    <input type="radio" name="q2" value="a"> 6<br>
+    <input type="radio" name="q2" value="b"> 8<br>
+    <input type="radio" name="q2" value="c"> 9<br>
+  </div>
+
+  <div class="q">
+    <p>3️⃣ HTML بتستخدم في؟</p>
+    <input type="radio" name="q3" value="a"> تصميم المواقع<br>
+    <input type="radio" name="q3" value="b"> الألعاب فقط<br>
+    <input type="radio" name="q3" value="c"> المونتاج<br>
+  </div>
+
+  <button onclick="submitExam()">تسليم الامتحان</button>
+</div>
+
+<script>
+  let name = localStorage.getItem("username");
+  if (!name) window.location.href = "login.html";
+
+  let examKey = "exam_done_" + name;
+  if (localStorage.getItem(examKey) === "true") {
+    alert("❌ الامتحان اتعمل قبل كده");
+    window.location.href = "platform.html";
+  }
+
+  // ⏱ تايمر 2 دقيقة
+  let time = 120;
+  let timer = setInterval(() => {
+    time--;
+    let m = String(Math.floor(time / 60)).padStart(2, "0");
+    let s = String(time % 60).padStart(2, "0");
+    document.getElementById("timer").innerText =
+      `الوقت المتبقي: ${m}:${s}`;
+
+    if (time <= 0) {
+      clearInterval(timer);
+      submitExam();
+    }
+  }, 1000);
+
+  function submitExam() {
+    clearInterval(timer);
+    let score = 0;
+
+    if (document.querySelector('input[name="q1"]:checked')?.value === "b") score++;
+    if (document.querySelector('input[name="q2"]:checked')?.value === "b") score++;
+    if (document.querySelector('input[name="q3"]:checked')?.value === "a") score++;
+
+    localStorage.setItem(examKey, "true");
+
+    alert("✅ خلصت الامتحان\nدرجتك: " + score + " / 3");
+    window.location.href = "platform.html";
+  }
+</script>
+
+</body>
+</html>
